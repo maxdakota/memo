@@ -18,8 +18,7 @@
   .page {
     max-width: 580px;
     margin: 0 auto;
-    padding: 130px 24px 180px;
-  }
+    padding: 130px 24px 180px;  }
 
   h1 {
     font-size: 44px;
@@ -129,8 +128,6 @@
 
   .footer {
     margin-top: 120px;
-    padding-top: 32px;
-    border-top: 1px solid #ebebeb;
     font-family: "Courier New", monospace;
     font-size: 10px;
     letter-spacing: .15em;
@@ -142,109 +139,7 @@
 <body>
 <div class="page">
 
-  <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 40px;">
-    <h1 style="margin-bottom: 0;">Rendering Minds</h1>
-    <canvas id="brain" width="64" height="64" style="flex-shrink: 0; opacity: 0.55;"></canvas>
-  </div>
-
-  <script>
-    const canvas = document.getElementById('brain');
-    const ctx = canvas.getContext('2d');
-    const W = 64, H = 64;
-
-    // Node positions
-    const nodes = [
-      { x: 32, y:  8 },  // 0 top
-      { x: 56, y: 24 },  // 1 right-top
-      { x: 50, y: 52 },  // 2 right-bottom
-      { x: 14, y: 52 },  // 3 left-bottom
-      { x:  8, y: 24 },  // 4 left-top
-      { x: 32, y: 34 },  // 5 center
-    ];
-
-    const edges = [
-      [0,1],[1,2],[2,3],[3,4],[4,0],  // outer ring
-      [0,5],[1,5],[2,5],[3,5],[4,5],  // spokes to center
-    ];
-
-    // Signal state: one signal traveling per edge path
-    const signals = [
-      { path: [0,1,5,3], t: 0.0, speed: 0.008 },
-      { path: [4,5,2,1], t: 0.3, speed: 0.007 },
-      { path: [2,5,0,4], t: 0.6, speed: 0.009 },
-    ];
-
-    // Node pulse phases
-    const pulses = nodes.map((_, i) => i * (Math.PI * 2 / nodes.length));
-
-    function lerp(a, b, t) {
-      return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
-    }
-
-    function getSignalPos(path, t) {
-      const total = path.length - 1;
-      const scaled = t * total;
-      const seg = Math.min(Math.floor(scaled), total - 1);
-      const segT = scaled - seg;
-      return lerp(nodes[path[seg]], nodes[path[seg + 1]], segT);
-    }
-
-    let tick = 0;
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      tick++;
-
-      // Draw edges
-      ctx.strokeStyle = '#d8d8d8';
-      ctx.lineWidth = 0.8;
-      edges.forEach(([a, b]) => {
-        ctx.beginPath();
-        ctx.moveTo(nodes[a].x, nodes[a].y);
-        ctx.lineTo(nodes[b].x, nodes[b].y);
-        ctx.stroke();
-      });
-
-      // Draw nodes with pulse
-      nodes.forEach((n, i) => {
-        pulses[i] += 0.04;
-        const pulse = 0.5 + 0.5 * Math.sin(pulses[i]);
-        const r = 2.2 + pulse * 1.0;
-        const alpha = 0.4 + pulse * 0.4;
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(80, 80, 80, ${alpha})`;
-        ctx.fill();
-      });
-
-      // Draw signals
-      signals.forEach(sig => {
-        sig.t += sig.speed;
-        if (sig.t >= 1) sig.t = 0;
-
-        const pos = getSignalPos(sig.path, sig.t);
-
-        // Glow
-        const grd = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 5);
-        grd.addColorStop(0, 'rgba(60,60,60,0.9)');
-        grd.addColorStop(1, 'rgba(60,60,60,0)');
-        ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
-
-        // Core dot
-        ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(40,40,40,0.95)';
-        ctx.fill();
-      });
-
-      requestAnimationFrame(draw);
-    }
-
-    draw();
-  </script>
+  <h1>Rendering Minds</h1>
 
   <div class="cover">
     <p>We see a future where billions of sub-agents will participate in the global economy as both producers and buyers, exchanging trillions of dollars in value. Today, most economic activity occurs between firms and their clients, vendors, partners, and regulators. As intelligence arbitrage accelerates, the humans mediating these relationships will increasingly be augmented, or replaced, by agents acting on their behalf.</p>
@@ -253,7 +148,6 @@
 
     <p>Rendering Minds is working to answer them.</p>
   </div>
-
 
   <hr>
 
@@ -269,48 +163,54 @@
     <p>The leading vendors are now partnering with established companies to document and instrument their workflows. This runs into institutional inertia, third-party consent concerns, and procurement cycles that move too slowly. Neither approach is producing the data the next generation of AI requires.</p>
   </div>
 
-
   <hr>
 
 
   <div class="section">
     <div class="section-num">02</div>
-    <h2>Our Approach: Pods</h2>
+    <h2>Our Approach: ACEs</h2>
 
-    <p>We are building Pods: semi-autonomous firms that perform services for real clients. Each Pod is anchored by a Pod Lead, a human domain expert who decomposes the service into jobs to be done, specifies the tools and context required, and oversees a fleet of agents hired to fill the resulting organizational structure.</p>
+    <p>An ACE (Autonomous Commercial Entity) is a semi-autonomous firm that serves real clients. ACEs earn revenue, manage P&L, and operate under real market pressures.</p>
 
-    <p>The domains that fit the Pod model best share three properties:</p>
+    <p>Each ACE is anchored by a Director: a human domain expert who decomposes the service into discrete roles, specifies what each role requires, defines what good output looks like at each stage, and makes the judgment calls that agents cannot yet make reliably.</p>
+
+    <p>The Director's job is not to do the work but to oversee the organization. Over time, as agents improve and operating principles accumulate, the Director's role narrows and the ACE becomes more autonomous.</p>
+
+    <p>The domains that fit the ACE model best share three properties:</p>
 
     <ul style="margin: 0 0 18px 24px; padding: 0;">
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">The work is currently bottlenecked by expensive human labor.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">The jobs within the service can be decomposed into discrete, assignable tasks.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">There is a clear quality signal that tells you whether the output was good.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">The work is bottlenecked by expensive human labor.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">The service can be decomposed into discrete, assignable tasks.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">There is a clear signal that tells you whether the output was good.</li>
     </ul>
 
-    <p>Legal due diligence run by an M&A lawyer, clinical trial operations run by a clinical director, insurance processing run by a senior adjuster. In each case, the Pod Lead brings the expertise to decompose the service and review the output, and the agents perform the roles in between.</p>
+    <p>Examples include a software development agency, financial research firm, and regulatory compliance service. In each case, the Director brings the expertise to decompose the work and review the output, and the agents perform the roles in between.</p>
 
-    <p>The Pod structure accomplishes two things simultaneously. It generates frontier data that can be sold to labs as RL environments and long-horizon training data. More importantly, it builds and validates the coordination layer needed to govern agents doing real work. This produces a growing library of firm structures, agent personas, and operating principles.</p>
+    <p>ACEs serve two purposes:</p>
+
+    <ul style="margin: 0 0 18px 24px; padding: 0;">
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;"><strong>Data.</strong> Each ACE produces frontier training data that cannot be generated through conventional annotation: long-horizon agent trajectories, multi-agent coordination traces, real escalation and recovery patterns. This data is sold to frontier labs.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;"><strong>Platform.</strong> Each ACE is a live experiment that builds and validates the coordination layer needed to govern agents doing real work. This produces a growing library of firm structures, agent personas, and operating principles.</li>
+    </ul>
   </div>
-
 
   <hr>
 
 
   <div class="section">
     <div class="section-num">03</div>
-    <h2>First Pod: Autonomous Data Factory</h2>
+    <h2>First ACE: Autonomous Data Factory</h2>
 
-    <p>Frontier AI labs need industrial volumes of high-quality data. Today, the collection process is manual and operationally intensive, requiring large teams of project managers. The Autonomous Data Factory replaces the operations layer with an agentic workforce. Agents source, vet, and train domain experts, measure their performance, ensure quality control, and package data for delivery to clients.</p>
+    <p>Frontier AI labs need industrial volumes of high-quality data. Today, the collection process is manual and operationally intensive. It requires teams of project managers, auditors, data scientists, and other supporting staff. Our first ACE, an Autonomous Data Factory, replaces the human data operations layer with an agentic workforce. Agents source and vet domain experts, track their performance on projects, conduct quality control, own the project's P&L, and deliver data directly to clients.</p>
 
     <p>We start here for three reasons.</p>
 
     <ul style="margin: 0 0 18px 24px; padding: 0;">
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">We have run these pipelines at scale. We are the first Pod Leads, instantiating our own domain expertise in an agentic workforce.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">Data projects are high-velocity: they give us the fastest feedback loops to iterate on and improve the coordination layer through real use.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">Frontier labs and leading data vendors have high standards and an acute need for the specific data types that are hardest to produce. Remaining at the frontier is the fastest path to authority in the market that follows.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">We have run these pipelines at scale. We are the first Directors, instantiating our own domain expertise in an agentic workforce.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">Data projects are high-velocity, which gives us the fastest feedback loops to iterate on and improve the coordination layer through real use.</li>
+      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">Frontier labs and human data vendors have an acute need for specific data types that we will produce. Remaining at the frontier is the fastest path to authority in the market that follows.</li>
     </ul>
   </div>
-
 
   <hr>
 
@@ -323,7 +223,7 @@
       <div class="roadmap-item">
         <div class="roadmap-label">Near term</div>
         <div>
-          <div class="roadmap-title">Semi-Autonomous Pods</div>
+          <div class="roadmap-title">ACEs</div>
           <p class="roadmap-body">Serving frontier labs on the highest-value, hardest-to-source data types: multi-agent coordination, user simulation, ultra-long-horizon code.</p>
         </div>
       </div>
@@ -331,7 +231,7 @@
         <div class="roadmap-label">Medium term</div>
         <div>
           <div class="roadmap-title">Multi-Agent Coordination for Enterprises</div>
-          <p class="roadmap-body">As enterprise use cases catch up to model capabilities, we will be positioned to provide coordination infrastructure, having spent years deploying agents in semi-autonomous Pods across many domains.</p>
+          <p class="roadmap-body">As enterprise use cases catch up to model capabilities, we will be positioned to provide coordination infrastructure, having spent years deploying agents in semi-autonomous ACEs across many domains.</p>
         </div>
       </div>
       <div class="roadmap-item">
@@ -345,12 +245,7 @@
   </div>
 
 
-  <div class="closing">
-    <p>The economy ahead will not belong to the smartest single model. It will belong to whoever best organizes intelligence.</p>
-    <p>Rendering Minds is building that.</p>
-  </div>
-
-  <div class="footer">Rendering Minds · Confidential</div>
+  <div class="footer">Rendering Minds</div>
 
 </div>
 </body>
