@@ -18,7 +18,8 @@
   .page {
     max-width: 580px;
     margin: 0 auto;
-    padding: 130px 24px 180px;  }
+    padding: 130px 24px 180px;
+  }
 
   h1 {
     font-size: 44px;
@@ -59,6 +60,19 @@
     color: #111;
   }
 
+  h3 {
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    font-weight: normal;
+    letter-spacing: .12em;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 32px;
+  }
+
+  h3:first-of-type { margin-top: 0; }
+
   p {
     font-size: 17px;
     color: #333;
@@ -72,6 +86,18 @@
     border: none;
     border-top: 1px solid #ebebeb;
     margin: 40px 0;
+  }
+
+  ul {
+    margin: 0 0 18px 24px;
+    padding: 0;
+  }
+
+  ul li {
+    font-size: 17px;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 8px;
   }
 
   .roadmap {
@@ -111,21 +137,6 @@
     margin: 0;
   }
 
-  .closing {
-    margin-top: 36px;
-    padding-top: 36px;
-    border-top: 1px solid #111;
-  }
-
-  .closing p {
-    font-size: 19px;
-    color: #111;
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-
-  .closing p:last-child { margin-bottom: 0; }
-
   .footer {
     margin-top: 120px;
     font-family: "Courier New", monospace;
@@ -142,12 +153,13 @@
   <h1>Rendering Minds</h1>
 
   <div class="cover">
-    <p>We see a future where billions of sub-agents will participate in the global economy as both producers and buyers, exchanging trillions of dollars in value. Today, most economic activity occurs between firms and their clients, vendors, partners, and regulators. As intelligence arbitrage accelerates, the humans mediating these relationships will increasingly be augmented, or replaced, by agents acting on their behalf.</p>
+    <p>We see a future where billions of AI agents participate in the global economy as both producers and buyers, exchanging trillions of dollars in value. Today, most economic activity occurs between firms and their clients, vendors, partners, and regulators. As intelligence arbitrage accelerates, the humans mediating these relationships will increasingly be augmented, or replaced, by agents acting on their behalf.</p>
 
     <p>When this happens, the bottleneck on economic activity will not be model capability or compute. It will be coordination. How will agents work together in cooperative and adversarial contexts? How will they share knowledge, resolve disputes, and delegate authority across organizations? These are open questions.</p>
 
     <p>Rendering Minds is working to answer them.</p>
   </div>
+
 
   <hr>
 
@@ -156,12 +168,25 @@
     <div class="section-num">01</div>
     <h2>Why the Existing Approach Failed</h2>
 
-    <p>The path to agentic organizations runs through data. The same data that teaches frontier models how to perform economically valuable work also reveals what infrastructure is required for scalable, multi-agent coordination.</p>
+    <p>The path to autonomous organizations depends on solving two related problems: how to coordinate agents effectively, and how to capture the data needed to improve agent coordination over time.</p>
+
+    <h3>Agent Coordination</h3>
+
+    <p>Today, agent deployments succeed with small-task automation: summarizing documents, classifying tickets, drafting emails, and analyzing data.</p>
+
+    <p>Where deployments fail is in performing long-horizon work that unfolds over days or weeks, crossing teams, jurisdictions, software systems, and customers. These failures occur not primarily because models are insufficiently intelligent, but because small errors compound over time. A single task at 90% accuracy is fine. Chain three of them together and you're at 73%. Chain five and you're under 60%. When one agent makes a false assumption or misclassifies an edge case, that output becomes the input to the next agent, and the entire team begins reasoning from contaminated context.</p>
+
+    <p>Collapsing reliability precludes multi-agent systems from performing long-horizon work.</p>
+
+    <h3>Coordination Data</h3>
+
+    <p>The same data that teaches frontier models how to perform economically valuable work also reveals what infrastructure is required for multi-agent coordination.</p>
 
     <p>In 2012, crowdsourced annotation worked because tasks were simple, workers were easy to source, and data easy to QA. Tasks grew harder but remained tractable. Today, frontier data types — long-horizon work, multi-agent coordination, multi-turn model behavior — present new challenges. These cannot be captured through conventional annotation interfaces. They require ground-truth signal from the real world.</p>
 
     <p>The leading vendors are now partnering with established companies to document and instrument their workflows. This runs into institutional inertia, third-party consent concerns, and procurement cycles that move too slowly. Neither approach is producing the data the next generation of AI requires.</p>
   </div>
+
 
   <hr>
 
@@ -178,21 +203,22 @@
 
     <p>The domains that fit the ACE model best share three properties:</p>
 
-    <ul style="margin: 0 0 18px 24px; padding: 0;">
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">The work is bottlenecked by expensive human labor.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">The service can be decomposed into discrete, assignable tasks.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">There is a clear signal that tells you whether the output was good.</li>
+    <ul>
+      <li>The work is bottlenecked by expensive human labor.</li>
+      <li>The service can be decomposed into discrete, assignable tasks.</li>
+      <li>There is a clear signal that tells you whether the output was good.</li>
     </ul>
 
     <p>Examples include a software development agency, financial research firm, and regulatory compliance service. In each case, the Director brings the expertise to decompose the work and review the output, and the agents perform the roles in between.</p>
 
     <p>ACEs serve two purposes:</p>
 
-    <ul style="margin: 0 0 18px 24px; padding: 0;">
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;"><strong>Data.</strong> Each ACE produces frontier training data that cannot be generated through conventional annotation: long-horizon agent trajectories, multi-agent coordination traces, escalation and recovery patterns. This data is sold to frontier labs.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;"><strong>Platform.</strong> Each ACE is a live experiment that builds and validates the coordination layer needed to govern agents doing this work. This produces a growing library of firm structures, agent personas, and operating principles.</li>
+    <ul>
+      <li><strong>Coordination Infrastructure.</strong> Each ACE is a live experiment that tests and validates the coordination layer required to govern agents. Over time, this creates a growing library of firm structures, agent personas, and operating principles. By enabling ACEs to operate autonomously, we develop the infrastructure needed to scale autonomous work across the economy.</li>
+      <li><strong>Coordination Data.</strong> Each ACE produces frontier training data that cannot be generated through conventional annotation: long-horizon agent trajectories, multi-agent coordination traces, escalation and recovery patterns. This data is sold to AI labs, generating immediate revenue.</li>
     </ul>
   </div>
+
 
   <hr>
 
@@ -205,12 +231,13 @@
 
     <p>We start here for three reasons.</p>
 
-    <ul style="margin: 0 0 18px 24px; padding: 0;">
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">We have run these pipelines at scale. We are the first Directors, instantiating our own domain expertise in an agentic workforce.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">Data projects are high-velocity, which gives us the fastest feedback loops to iterate on and improve the coordination layer through use.</li>
-      <li style="font-size: 17px; color: #333; line-height: 1.8; margin-bottom: 8px;">Frontier labs and human data vendors have an acute need for specific data types that we will produce. Remaining at the frontier is the fastest path to authority in the market that follows.</li>
+    <ul>
+      <li>We have run these pipelines at scale. We are the first Directors, instantiating our own domain expertise in an agentic workforce.</li>
+      <li>Data projects are high-velocity, giving us the fastest feedback loops to iterate on and improve the coordination layer through use.</li>
+      <li>Labs have an acute need for specific data types that we will produce. Remaining at the frontier is the fastest path to authority in the market that follows.</li>
     </ul>
   </div>
+
 
   <hr>
 
@@ -231,7 +258,7 @@
         <div class="roadmap-label">Medium term</div>
         <div>
           <div class="roadmap-title">Multi-Agent Coordination for Enterprises</div>
-          <p class="roadmap-body">As enterprise use cases catch up to model capabilities, we will be positioned to provide coordination infrastructure, having spent years deploying agents in semi-autonomous ACEs across many domains.</p>
+          <p class="roadmap-body">As enterprise use cases catch up to model capabilities, we will be positioned to provide coordination infrastructure, having spent years deploying agents in ACEs across many domains.</p>
         </div>
       </div>
       <div class="roadmap-item">
@@ -243,7 +270,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="footer">Rendering Minds</div>
 
